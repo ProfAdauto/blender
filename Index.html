@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#151827">
+<title>Projeto Blender — Onitama: Sua Própria Edição</title>
+<style>
+:root{--bg:#10131f;--panel:#191e2e;--panel2:#20273a;--ink:#f4f5fb;--muted:#b6bfd3;--line:#343c53;--accent:#ffbd59;--accent2:#8bd8d0;--danger:#ff8d8d;--max:1080px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent2)}.wrap{width:min(var(--max),calc(100% - 32px));margin:auto}
+.hero{position:relative;overflow:hidden;padding:70px 0 54px;background:radial-gradient(ellipse at 80% 20%,#34375b 0,transparent 45%),linear-gradient(135deg,#171b2b,#25203b 70%,#3a2635);border-bottom:1px solid var(--line)}
+.kicker{display:inline-flex;gap:8px;align-items:center;border:1px solid #6b5b53;background:#342c39;padding:6px 12px;border-radius:999px;color:#ffe0aa;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2.4rem,6vw,4.7rem);line-height:1.03;letter-spacing:-.045em;max-width:850px;margin:22px 0}h1 span{color:var(--accent)}.lead{font-size:clamp(1.05rem,2vw,1.25rem);max-width:760px;color:#e0e4f0}.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.pill{border:1px solid #596078;background:#20263a;padding:7px 12px;border-radius:8px;font-size:.9rem;color:#e4e8f3}
+nav{position:sticky;top:0;z-index:5;background:#111521f2;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}nav .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 0}nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.88rem;padding:7px 10px;border-radius:7px}nav a:hover{background:var(--panel2);color:var(--ink)}
+main{padding:34px 0 70px}section{margin:0 0 44px;scroll-margin-top:78px}.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);font-weight:800;margin-bottom:6px}h2{font-size:clamp(1.65rem,3.5vw,2.35rem);line-height:1.15;margin:0 0 14px;letter-spacing:-.025em}h3{font-size:1.15rem;line-height:1.3;margin:0 0 8px}p{margin:0 0 12px;color:#dce1ee}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}.number{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#353047;color:var(--accent);font-weight:900;margin-bottom:12px}.callout{border-left:4px solid var(--accent);background:#292638;padding:16px 18px;border-radius:0 12px 12px 0;margin:18px 0}.callout strong{color:#ffdda1}.teal{border-color:var(--accent2);background:#1b3035}.teal strong{color:var(--accent2)}ul,ol{padding-left:22px;color:#dce1ee;margin:8px 0 0}li{margin:6px 0}.tag{display:inline-block;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#181a22;background:var(--accent);padding:4px 8px;border-radius:5px;margin-bottom:10px}.step{display:grid;grid-template-columns:54px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.stepnum{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);font-size:1.1rem;font-weight:900;color:var(--accent)}.deliver{margin-top:12px;border-radius:9px;background:#202a35;border:1px solid #344e53;padding:10px 13px;color:#c7f1e8;font-size:.94rem}.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:var(--panel)}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--accent);font-size:.88rem;background:#202538}tr:last-child td{border-bottom:0}.checklist{display:grid;gap:10px;margin-top:16px}.check{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);padding:12px 14px;border-radius:10px;cursor:pointer}.check input{width:19px;height:19px;margin-top:3px;accent-color:var(--accent2);flex-shrink:0}.check span{color:#dce1ee}.check input:checked+span{text-decoration:line-through;color:#98a4ba}.progressline{height:8px;background:#30364a;border-radius:999px;overflow:hidden;margin:10px 0 18px}.progressline div{height:100%;width:0;background:var(--accent2);transition:width .2s}.progresslabel{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem}.rule{display:flex;gap:12px;margin:12px 0}.icon{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:9px;background:#293744;color:var(--accent2);font-weight:900}.rule p{margin:0}.small{font-size:.9rem}.footer{border-top:1px solid var(--line);padding:28px 0 45px;color:var(--muted);font-size:.9rem}.btn{border:1px solid #667087;background:#252d42;color:var(--ink);padding:9px 13px;border-radius:9px;font-weight:700;cursor:pointer}.btn:hover{background:#323d55}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:760px){.span4,.span6,.span8{grid-column:span 12}.hero{padding:48px 0 38px}.card{padding:18px}.step{grid-template-columns:42px 1fr;gap:12px}.stepnum{width:40px;height:40px}}
+@media print{body{background:white;color:#111;font-size:11pt}.hero{background:white;color:#111;padding:20px 0;border-bottom:2px solid #333}.lead,p,li,.muted{color:#222}nav,.actions{display:none}.card,.tablewrap,table{background:white;border-color:#aaa}.card{break-inside:avoid}.hero-meta .pill{background:white;color:#111;border-color:#aaa}h1 span,.eyebrow{color:#333}.step{break-inside:avoid}.callout,.deliver{background:#f4f4f4;color:#111}.callout strong,.deliver{color:#111}a{color:#111}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Projeto de modelagem 3D · Blender</div>
+    <h1>ONITAMA:<br><span>Sua Própria Edição</span></h1>
+    <p class="lead">Um desafio de design e modelagem 3D: reinventar visualmente um jogo conhecido, criando personagens e tabuleiro com identidade própria — sem perder a funcionalidade das peças.</p>
+    <div class="hero-meta">
+      <span class="pill">✦ Criação individual</span>
+      <span class="pill">▦ Personagens + tabuleiro</span>
+      <span class="pill">⬆ Modelagem pensada para impressão 3D</span>
+    </div>
+  </div>
+</header>
+<nav aria-label="Navegação do projeto"><div class="wrap">
+  <a href="#missao">A missão</a><a href="#escopo">O que criar</a><a href="#regras">Regras técnicas</a><a href="#etapas">Etapas</a><a href="#entregas">Entregas</a><a href="#avaliacao">Avaliação</a><a href="#checklist">Checklist</a>
+</div></nav>
+<main class="wrap">
+<section id="missao">
+  <div class="eyebrow">01 · Entenda o desafio</div>
+  <h2>Uma ideia, muitas interpretações</h2>
+  <p>Onitama é um jogo de estratégia disputado em um tabuleiro de <strong>5 × 5 casas</strong>. Cada jogador controla um mestre e quatro estudantes. Neste projeto, cada aluno criará sua própria edição visual: personagens personalizados e um tabuleiro que combine com eles.</p>
+  <p>Você pode escolher uma estética samurai, mitológica, fantástica, futurista, animal ou totalmente autoral. A liberdade criativa é grande, mas existe uma condição essencial: as peças precisam manter a aparência compacta e vertical característica do Onitama, para continuarem legíveis e mais adequadas à impressão 3D.</p>
+  <div class="callout"><strong>Objetivo principal:</strong> aprender a construir modelos 3D no Blender, passando por pesquisa, formas básicas, modelagem e revisão técnica. O projeto se concentra exclusivamente na geometria e na construção dos objetos. Não serão exigidos materiais, texturas, iluminação ou renderização.</div>
+</section>
+<section id="escopo">
+  <div class="eyebrow">02 · O que você vai criar</div>
+  <h2>Três partes do mesmo projeto</h2>
+  <div class="grid">
+    <article class="card span4"><div class="number">A</div><h3>Personagens</h3><p>Crie um mestre e um modelo de estudante. A partir do estudante, forme o conjunto com quatro estudantes por lado. O mestre deve ser facilmente reconhecido.</p><p class="muted small">Meta: 10 peças no conjunto completo — 1 mestre + 4 estudantes para cada lado.</p></article>
+    <article class="card span4"><div class="number">B</div><h3>Tabuleiro</h3><p>Modele uma base com grade de 5 × 5 casas. As casas precisam estar alinhadas, ter dimensões consistentes e espaço suficiente para as peças.</p><p class="muted small">Meta: tabuleiro com 25 casas, bordas e acabamento coerente com o tema.</p></article>
+    <article class="card span4"><div class="number">C</div><h3>Organização e documentação</h3><p>Organize o arquivo do Blender e registre imagens da área de trabalho mostrando o tabuleiro e os personagens modelados.</p><p class="muted small">Meta: arquivo .blend organizado e capturas de tela claras do modelo em 3D.</p></article>
+  </div>
+  <div class="callout teal"><strong>Importante:</strong> não é necessário modelar dez personagens completamente diferentes. Um modelo-base de estudante pode ser duplicado e receber pequenas variações. O foco é construir uma família visual coerente.</div>
+</section>
+<section id="regras">
+  <div class="eyebrow">03 · Requisitos obrigatórios</div>
+  <h2>Regras de modelagem das peças</h2>
+  <p>Estas regras estabelecem limites técnicos comuns a todos. Elas não determinam o tema ou o estilo artístico; garantem que as peças continuem práticas para um jogo de tabuleiro.</p>
+  <div class="card">
+    <div class="rule"><div class="icon">1</div><p><strong>Orientação vertical.</strong> O personagem deve ficar em pé, com sua forma principal crescendo para cima. Evite poses deitadas ou horizontais.</p></div>
+    <div class="rule"><div class="icon">2</div><p><strong>Silhueta compacta.</strong> Cabeça, tronco e acessórios devem formar um volume coeso. Evite braços muito abertos, pontas finas e extensões frágeis.</p></div>
+    <div class="rule"><div class="icon">3</div><p><strong>Base plana e estável.</strong> Todas as peças devem apoiar-se sobre uma superfície plana. Use uma base padronizada definida com o professor.</p></div>
+    <div class="rule"><div class="icon">4</div><p><strong>Mestre reconhecível.</strong> Diferencie o mestre dos estudantes por altura, formato da cabeça, adorno robusto, roupa ou outro detalhe claramente visível.</p></div>
+    <div class="rule"><div class="icon">5</div><p><strong>Dois lados distinguíveis.</strong> Use cores, materiais ou detalhes diferentes para que os jogadores identifiquem facilmente suas peças.</p></div>
+    <div class="rule"><div class="icon">6</div><p><strong>Personalização autoral.</strong> O tema é livre, mas a forma precisa respeitar a escala, a estabilidade e a leitura visual de uma peça de jogo.</p></div>
+  </div>
+  <h3 style="margin-top:22px">Pense na impressão 3D desde o início</h3>
+  <ul>
+    <li>Evite detalhes minúsculos que possam desaparecer na impressão.</li>
+    <li>Evite pontas longas, peças suspensas e partes muito finas.</li>
+    <li>Confira se a miniatura cabe dentro da área de uma casa do tabuleiro.</li>
+    <li>Mantenha a base consistente entre as peças.</li>
+    <li>Antes de imprimir, verifique escala, espessuras, malha e orientação na fatiadora com a orientação do professor.</li>
+  </ul>
+  <div class="callout"><strong>Atenção:</strong> estar em pé não garante, por si só, que um modelo será imprimível. A espessura dos detalhes, a estabilidade e a orientação de impressão também precisam ser verificadas. As dimensões físicas finais serão combinadas com o professor.</div>
+</section>
+<section id="etapas">
+  <div class="eyebrow">04 · Caminho de produção</div>
+  <h2>Etapas do projeto: da ideia ao produto</h2>
+  <p>Não pule direto para os detalhes. Cada etapa prepara a próxima. Mostre a entrega parcial ao professor antes de avançar. O projeto termina com a modelagem revisada e sua apresentação pela viewport do Blender — sem etapa de materiais, texturas ou renderização.</p>
+  <div class="card">
+    <div class="step"><div class="stepnum">01</div><div><span class="tag">Planejamento</span><h3>Pesquisa e conceito visual</h3><p><strong>Como fazer:</strong> escolha um tema; reúna referências de personagens, roupas, criaturas e materiais; defina de três a cinco cores; desenhe o mestre, o estudante e o tabuleiro.</p><p><strong>Por que importa:</strong> referências e esboços ajudam a manter uma direção visual e a resolver ideias antes de gastar tempo modelando.</p><div class="deliver">Entrega da etapa: painel de referências, paleta de cores, esboços e nome provisório da edição.</div></div></div>
+    <div class="step"><div class="stepnum">02</div><div><span class="tag">Formas básicas</span><h3>Bloqueio do personagem</h3><p><strong>Como fazer:</strong> use cubos, esferas, cilindros e cones. Combine as formas para criar cabeça, tronco, pernas e acessórios principais. Pratique movimentação (G), rotação (R) e escala (S).</p><p><strong>Por que importa:</strong> a silhueta deve funcionar antes dos detalhes. Se o personagem não for reconhecível em formas simples, será mais difícil corrigi-lo depois.</p><div class="deliver">Entrega da etapa: versões básicas do mestre e do estudante, ainda sem detalhes complexos.</div></div></div>
+    <div class="step"><div class="stepnum">03</div><div><span class="tag">Modelagem</span><h3>Construção e personalização</h3><p><strong>Como fazer:</strong> use Edit Mode (Tab) para editar a malha. Pratique extrusão (E), escala (S), movimentação (G) e cortes quando necessário. Acrescente roupas, armaduras, rostos e acessórios robustos.</p><p><strong>Por que importa:</strong> esta é a etapa central de aprendizagem. O objetivo é demonstrar que você consegue construir e modificar formas no Blender, não apenas organizar objetos prontos.</p><div class="deliver">Entrega da etapa: mestre e estudante modelados, com silhueta vertical e compacta.</div></div></div>
+    <div class="step"><div class="stepnum">04</div><div><span class="tag">Conjunto de peças</span><h3>Variações e diferenciação</h3><p><strong>Como fazer:</strong> duplique o estudante para compor o conjunto. Se desejar, faça pequenas variações sem perder o estilo comum. Diferencie os dois lados com cores ou detalhes e destaque visualmente o mestre.</p><p><strong>Por que importa:</strong> o jogo exige leitura rápida. Os jogadores precisam reconhecer suas peças e distinguir o mestre dos estudantes.</p><div class="deliver">Entrega da etapa: conjunto de dez peças — cinco por lado — com uma identidade visual coerente.</div></div></div>
+    <div class="step"><div class="stepnum">05</div><div><span class="tag">Estrutura</span><h3>Modelagem do tabuleiro</h3><p><strong>Como fazer:</strong> modele a base; crie uma casa; duplique-a ou use Array para formar a grade de 5 × 5. Confira alinhamento, espaçamento, bordas e área disponível para cada peça.</p><p><strong>Por que importa:</strong> o tabuleiro precisa ser regular e funcional. Casas desalinhadas ou pequenas demais prejudicam a experiência de jogo.</p><div class="deliver">Entrega da etapa: tabuleiro completo, com 25 casas e espaço para acomodar as peças.</div></div></div>
+    <div class="step"><div class="stepnum">06</div><div><span class="tag">Revisão técnica</span><h3>Teste de escala, estabilidade e malha</h3><p><strong>Como fazer:</strong> posicione as dez peças no tabuleiro; verifique se cabem nas casas; confira as bases, os detalhes frágeis, as superfícies e a organização dos objetos. Se houver impressão, revise o modelo com o professor e a fatiadora.</p><p><strong>Por que importa:</strong> encontrar problemas antes do acabamento evita retrabalho e ajuda a garantir que o conjunto possa ser usado como planejado.</p><div class="deliver">Entrega da etapa: modelo revisado e pronto para receber acabamento visual.</div></div></div>
+    <div class="step"><div class="stepnum">07</div><div><span class="tag">Entrega</span><h3>Organização e apresentação do modelo</h3><p><strong>Como fazer:</strong> organize os objetos e dê nomes claros às peças; salve o arquivo .blend; posicione o tabuleiro e os personagens de modo que seja possível inspecionar o conjunto na viewport do Blender. Faça capturas de tela em ângulos que mostrem a forma geral e os detalhes da modelagem.</p><p><strong>Por que importa:</strong> um arquivo organizado facilita a avaliação e permite demonstrar o trabalho de modelagem sem precisar criar materiais ou renderizações.</p><div class="deliver">Entrega da etapa: arquivo .blend organizado e capturas de tela da viewport mostrando o conjunto completo e detalhes dos personagens.</div></div></div>
+  </div>
+</section>
+<section id="dimensoes">
+  <div class="eyebrow">05 · Planejamento técnico</div>
+  <h2>Dimensões e compatibilidade</h2>
+  <p>Antes da modelagem detalhada, a turma deverá combinar com o professor as dimensões finais. As medidas abaixo são itens a definir, não valores universais.</p>
+  <div class="tablewrap"><table><thead><tr><th>Elemento</th><th>O que definir ou verificar</th></tr></thead><tbody>
+    <tr><td>Casa do tabuleiro</td><td>Largura e comprimento iguais; espaço para apoiar uma peça sem tocar nas vizinhas.</td></tr>
+    <tr><td>Base da peça</td><td>Diâmetro ou largura padronizados, superfície plana e apoio estável.</td></tr>
+    <tr><td>Altura do personagem</td><td>Proporção vertical clara e altura compatível com o tamanho das casas.</td></tr>
+    <tr><td>Detalhes e acessórios</td><td>Espessura suficiente para não quebrar nem desaparecer na impressão.</td></tr>
+    <tr><td>Tabuleiro completo</td><td>Grade 5 × 5, bordas e dimensões que permitam posicionar as peças corretamente.</td></tr>
+  </tbody></table></div>
+  <p class="muted small" style="margin-top:10px">Sugestão para o professor: forneça uma peça-base ou um arquivo de referência com as dimensões combinadas. Isso padroniza a parte funcional e deixa a personalização concentrada no personagem.</p>
+</section>
+<section id="entregas">
+  <div class="eyebrow">06 · O que será entregue</div>
+  <h2>Pacote final de cada aluno</h2>
+  <div class="grid">
+    <article class="card span6"><h3>📁 Arquivo de trabalho</h3><p>Arquivo .blend com personagens e tabuleiro organizados, objetos nomeados e sem elementos desnecessários.</p></article>
+    <article class="card span6"><h3>🖼️ Imagem geral</h3><p>Captura de tela da viewport mostrando o tabuleiro completo com as peças posicionadas.</p></article>
+    <article class="card span6"><h3>🔎 Imagens de detalhe</h3><p>Pelo menos duas capturas de tela da viewport: uma destacando o mestre e outra mostrando os estudantes ou detalhes da geometria.</p></article>
+    <article class="card span6"><h3>📝 Conceito e processo</h3><p>Nome da edição, tema, breve justificativa visual, esboço inicial e registros de pelo menos duas etapas de modelagem.</p></article>
+  </div>
+  <div class="callout teal"><strong>Se houver impressão 3D:</strong> exporte os arquivos no formato solicitado pelo professor, normalmente STL ou 3MF, somente depois de revisar escala, geometria e espessuras. O arquivo .blend original também deve ser entregue. Não é necessário criar materiais, texturas ou renderizações para concluir o projeto.</div>
+</section>
+<section id="avaliacao">
+  <div class="eyebrow">07 · Critérios de avaliação</div>
+  <h2>Como o projeto será avaliado?</h2>
+  <div class="tablewrap"><table><thead><tr><th>Critério</th><th>O que será observado</th><th>Peso</th></tr></thead><tbody>
+    <tr><td>Domínio da modelagem</td><td>Uso adequado das ferramentas e construção das formas.</td><td>30%</td></tr>
+    <tr><td>Qualidade do modelo</td><td>Proporções, silhueta, acabamento e consistência geométrica.</td><td>25%</td></tr>
+    <tr><td>Criatividade</td><td>Originalidade e coerência da identidade visual.</td><td>20%</td></tr>
+    <tr><td>Organização e funcionalidade</td><td>Arquivo organizado, peças reconhecíveis e compatibilidade com o tabuleiro.</td><td>15%</td></tr>
+    <tr><td>Apresentação e processo</td><td>Organização do arquivo, capturas de tela e documentação do desenvolvimento.</td><td>10%</td></tr>
+  </tbody></table></div>
+  <p style="margin-top:12px">A complexidade não vale mais do que a qualidade. Um modelo simples, bem construído e funcional pode ter um resultado excelente. A evolução entre as etapas também será considerada.</p>
+</section>
+<section id="checklist">
+  <div class="eyebrow">08 · Acompanhe seu progresso</div>
+  <h2>Checklist do estudante</h2>
+  <p>Marque cada etapa quando estiver concluída. O progresso é calculado nesta página enquanto ela estiver aberta; use a lista como apoio à organização do trabalho.</p>
+  <div class="progresslabel"><span>Progresso geral</span><strong id="progressText">0 de 10 concluídas</strong></div>
+  <div class="progressline"><div id="progressBar"></div></div>
+  <div class="checklist" id="checklistItems">
+    <label class="check"><input type="checkbox"><span>Escolhi o tema e reuni referências visuais.</span></label>
+    <label class="check"><input type="checkbox"><span>Preparei esboços e paleta de cores.</span></label>
+    <label class="check"><input type="checkbox"><span>Modelei as formas básicas do mestre e do estudante.</span></label>
+    <label class="check"><input type="checkbox"><span>Personalizei os personagens mantendo a orientação vertical e compacta.</span></label>
+    <label class="check"><input type="checkbox"><span>Criei o conjunto de peças para os dois lados.</span></label>
+    <label class="check"><input type="checkbox"><span>Modelei o tabuleiro com 25 casas.</span></label>
+    <label class="check"><input type="checkbox"><span>Testei o encaixe das peças e revisei a escala.</span></label>
+    <label class="check"><input type="checkbox"><span>Organizei e revisei o arquivo do Blender.</span></label>
+    <label class="check"><input type="checkbox"><span>Organizei e nomeei os objetos no arquivo do Blender.</span></label>
+    <label class="check"><input type="checkbox"><span>Preparei capturas de tela mostrando o modelo e seus detalhes.</span></label>
+  </div>
+  <div class="actions"><button class="btn" onclick="window.print()">Imprimir / salvar em PDF</button><button class="btn" id="resetChecklist" type="button">Limpar checklist</button></div>
+</section>
+<section>
+  <div class="eyebrow">Mensagem final</div>
+  <div class="card">
+    <h2>Primeiro construir. Depois revisar. Por último, apresentar.</h2>
+    <p>O desafio não é criar o modelo mais complexo da turma. É aprender a transformar uma ideia em objetos tridimensionais, resolver problemas de modelagem e desenvolver uma identidade visual própria dentro de requisitos reais de uso.</p>
+    <p>Planeje antes de modelar, teste as formas antes de detalhar e peça feedback ao longo do processo. Não é necessário aplicar texturas, materiais ou renderizar: seu objetivo é criar uma edição do Onitama com geometria bem construída, original e reconhecível.</p>
+  </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap">Projeto didático de Blender · Onitama: Sua Própria Edição · Material de orientação para estudantes.</div></footer>
+<script>
+(function(){
+ const boxes=[...document.querySelectorAll('#checklistItems input[type="checkbox"]')];
+ const bar=document.getElementById('progressBar'), text=document.getElementById('progressText');
+ function update(){const n=boxes.filter(b=>b.checked).length;bar.style.width=(n/boxes.length*100)+'%';text.textContent=n+' de '+boxes.length+' concluídas';}
+ boxes.forEach(b=>b.addEventListener('change',update));
+ document.getElementById('resetChecklist').addEventListener('click',()=>{boxes.forEach(b=>b.checked=false);update();});
+ update();
+})();
+</script>
+</body>
+</html>
